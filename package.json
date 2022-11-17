@@ -1,5 +1,5 @@
 {
-  "name": "babel-platform-resolver",
+  "name": "babel-plugin-platform-resolver",
   "version": "0.0.1",
   "description": "Custom babel resolver that allows for platform-specific extensions",
   "main": "lib/plugin.js",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/poniraq/babel-platform-resolver.git"
+    "url": "git+https://github.com/poniraq/babel-plugin-platform-resolver.git"
   },
   "keywords": [
     "babel",
@@ -22,9 +22,9 @@
   "author": "poniraq@gmail.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/poniraq/babel-platform-resolver/issues"
+    "url": "https://github.com/poniraq/babel-plugin-platform-resolver/issues"
   },
-  "homepage": "https://github.com/poniraq/babel-platform-resolver#readme",
+  "homepage": "https://github.com/poniraq/babel-plugin-platform-resolver#readme",
   "devDependencies": {
     "@babel/core": "^7.20.2",
     "@babel/preset-env": "^7.20.2",

@@ -1,13 +1,13 @@
 ## Install
 
-    npm install babel-platform-resolver
+    npm install babel-plugin-platform-resolver
 
 and add it to your `.babelrc` with `@babel/preset-typescript`
 
 ```json
 {
   "plugins": [
-    "babel-platform-resolver",
+    "babel-plugin-platform-resolver",
     {
       "platform": "desktop"
     }
@@ -24,7 +24,7 @@ Supported extensions
 ```json
 {
   "plugins": [
-    "babel-platform-resolver",
+    "babel-plugin-platform-resolver",
     {
       "extensions": ["js", "jsx", "mjs"]
     }
@@ -41,7 +41,7 @@ List of supported platform extensions
 ```json
 {
   "plugins": [
-    "babel-platform-resolver",
+    "babel-plugin-platform-resolver",
     {
       "platforms": {
         "windows": ["windows", "desktop"],
@@ -71,7 +71,7 @@ Current platform
 ```json
 {
   "plugins": [
-    "babel-platform-resolver",
+    "babel-plugin-platform-resolver",
     {
       "platform": "windows"
     }
@@ -88,7 +88,7 @@ List of supported import functions
 ```json
 {
   "plugins": [
-    "babel-platform-resolver",
+    "babel-plugin-platform-resolver",
     {
       "transform_functions": ["require", "System.import"]
     }
