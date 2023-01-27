@@ -27,7 +27,7 @@ const ImportExportVisitor = <
   const source = node_path.get('source') as NodePath;
   if (!types.isStringLiteral(source)) return;
 
-  const import_path = source.value;
+  const import_path = source.value || (source.node as any).value;
   if (!import_path?.startsWith('.')) return; // skip non-local imports
 
   const alternative_path = utils.find_platform_import_path(
