@@ -2,7 +2,7 @@
   "extends": "./tsconfig.base.json",
   "exclude": ["__dtslint__"],
   "compilerOptions": {
-    "sourceMap": true,
+    "sourceMap": false,
     "noEmit": false,
     "outDir": "./build",
     "declaration": true,
