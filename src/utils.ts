@@ -62,6 +62,20 @@ const find_platform_import_path = (
     }
   }
 
+  // handle /module/index.<platform>.js case
+  for (const platform_extension of platform_extensions) {
+    for (const extension of extensions) {
+      const alternative_filepath = `${filepath_stripped}/index.${platform_extension}.${extension}`;
+      const absolute_filepath = path.isAbsolute(alternative_filepath)
+        ? alternative_filepath
+        : path.resolve(basedir, alternative_filepath);
+
+      if (fs.existsSync(absolute_filepath)) {
+        return alternative_filepath;
+      }
+    }
+  }
+
   return null;
 };
 

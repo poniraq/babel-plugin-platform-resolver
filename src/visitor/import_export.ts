@@ -38,6 +38,8 @@ const ImportExportVisitor = <
   );
   if (!alternative_path) return;
 
+  console.log(`platform-resolver: ${import_path} -> ${alternative_path}`);
+
   // console.log(`###########`);
   // console.log(`current_file: ${current_file}`);
   // console.log(`import_path: ${import_path}`);
