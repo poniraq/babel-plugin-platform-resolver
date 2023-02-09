@@ -4,8 +4,8 @@
   "compilerOptions": {
     "sourceMap": false,
     "noEmit": false,
-    "outDir": "./build",
+    "outDir": "./lib",
     "declaration": true,
-    "declarationDir": "./build"
+    "declarationDir": "./lib"
   }
 }

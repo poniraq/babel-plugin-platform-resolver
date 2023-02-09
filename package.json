@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-platform-resolver",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Custom babel resolver that allows for platform-specific extensions",
   "main": "lib/plugin.js",
   "types": "lib/plugin.d.ts",
@@ -8,7 +8,7 @@
     "lib"
   ],
   "scripts": {
-    "build": "rimraf build && tsc --project tsconfig.build.json && rimraf lib && move-cli build lib && rimraf build"
+    "build": "rimraf lib && tsc --project tsconfig.build.json"
   },
   "repository": {
     "type": "git",
@@ -33,7 +33,6 @@
     "@babel/types": "^7.20.2",
     "@types/babel__core": "^7.1.20",
     "@types/babel__traverse": "^7.18.2",
-    "move-cli": "^2.0.0",
     "prettier": "^2.7.1",
     "rimraf": "^4.1.2",
     "ts-node": "^10.9.1",

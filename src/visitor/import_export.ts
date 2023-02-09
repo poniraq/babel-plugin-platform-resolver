@@ -5,6 +5,7 @@ import { ImportDeclaration, ExportDeclaration } from '@babel/types';
 
 import { NormalizedOptions } from '../options';
 import * as utils from '../utils';
+import * as resolver from '../resolver';
 
 const ImportExportVisitor = <
   NodeType extends ImportDeclaration | ExportDeclaration
@@ -22,28 +23,20 @@ const ImportExportVisitor = <
 
   const current_file = state.file.opts.filename as string;
   const basedir = path.dirname(current_file);
-  if (basedir.includes('/node_modules/')) return; // skip node_modules
-
   const source = node_path.get('source') as NodePath;
   if (!types.isStringLiteral(source)) return;
 
   const import_path = source.value || (source.node as any).value;
-  if (!import_path?.startsWith('.')) return; // skip non-local imports
-
-  const alternative_path = utils.find_platform_import_path(
+  const alternative_path = resolver.resolve(
     import_path,
-    basedir,
-    options.platform_extensions,
-    options.extensions
+    {
+      ...options,
+      basedir
+    }
   );
   if (!alternative_path) return;
 
   console.log(`platform-resolver: ${import_path} -> ${alternative_path}`);
-
-  // console.log(`###########`);
-  // console.log(`current_file: ${current_file}`);
-  // console.log(`import_path: ${import_path}`);
-  // console.log(`alternative_path: ${alternative_path}`);
 
   visited_nodes.add(node_path);
   source.replaceWith(types.stringLiteral(alternative_path));
