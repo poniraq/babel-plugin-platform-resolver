@@ -53,7 +53,7 @@ const normalize_options = createSelector(
     };
     const platform = opts.platform || 'desktop';
     const platform_extensions = platforms[platform];
-    const log = Boolean(opts.platform) || false;
+    const log = Boolean(opts.log) || false;
 
     return {
       transform_functions,
