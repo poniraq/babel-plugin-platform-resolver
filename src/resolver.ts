@@ -28,6 +28,26 @@ const is_already_specific = (
 ): boolean => {
   const { platform_extensions, extensions } = options;
   const parsed = path.parse(filepath);
+  
+  let ends_with_extension = false;
+  for (const extension of extensions) {
+    if (filepath.endsWith(extension)) {
+      ends_with_extension = true;
+      break;
+    }
+  }
+
+  let filename = parsed.name;
+  let fileext = parsed.ext;
+  if (!ends_with_extension) {
+    /**
+     * filepath = 'example_file.win' // e.g. "extensionless"
+     * -> parsed.name = example_file
+     * -> parsed.ext = win
+     */
+    filename += `.${parsed.ext}`;
+    fileext = '';
+  }
 
   let ends_with_platform = false;
   for (const platform_extension of platform_extensions) {
@@ -37,7 +57,7 @@ const is_already_specific = (
     }
   }
 
-  return ends_with_platform && extensions.includes(parsed.ext);
+  return ends_with_platform && (fileext === '' || extensions.includes(fileext));
 }
 
 const try_resolve = (
@@ -49,7 +69,7 @@ const try_resolve = (
     extensions,
     basedir
   } = options;
-  const filepath_stripped = strip_extension(filepath);
+  const filepath_stripped = strip_extension(filepath, platform_extensions);
 
   for (const platform_extension of platform_extensions) {
     for (const extension of extensions) {

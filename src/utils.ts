@@ -31,9 +31,18 @@ const is_import_call = (
   return types.isImport(node_path.node.callee);
 };
 
-const strip_extension = (filepath: string) => {
+const strip_extension = (
+  filepath: string,
+  platform_extensions: Array<string>
+): string => {
   const parsed = path.parse(filepath);
-  return `${parsed.dir}${path.sep}${parsed.name}`;
+  
+  let result = `${parsed.dir}${path.sep}${parsed.name}`;
+  if (platform_extensions.includes(parsed.ext)) {
+    result += `.${parsed.ext}`;
+  }
+
+  return result;
 };
 
 export {
