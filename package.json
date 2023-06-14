@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-platform-resolver",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Custom babel resolver that allows for platform-specific extensions",
   "main": "lib/plugin.js",
   "types": "lib/plugin.d.ts",
