@@ -33,8 +33,13 @@ const is_import_call = (
 
 const strip_extension = (
   filepath: string,
+  extensions: Array<string>,
   platform_extensions: Array<string>
 ): string => {
+  if (is_extensionless(filepath, extensions)) {
+    return filepath;
+  }
+
   const parsed = path.parse(filepath);
 
   let result = `${parsed.dir}${path.sep}${parsed.name}`;
@@ -45,4 +50,20 @@ const strip_extension = (
   return result;
 };
 
-export { is_normal_call, is_import_call, strip_extension };
+const is_extensionless = (
+  filepath: string,
+  extensions: Array<string>
+): boolean => {
+  let is_extensionless = true;
+
+  for (const extension of extensions) {
+    if (filepath.endsWith(`.${extension}`)) {
+      is_extensionless = false;
+      break;
+    }
+  }
+
+  return is_extensionless;
+};
+
+export { is_normal_call, is_import_call, strip_extension, is_extensionless };

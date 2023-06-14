@@ -36,6 +36,7 @@ export type NormalizedOptions = {
   platforms: typeof default_platforms;
   platform: keyof typeof default_platforms;
   platform_extensions: Array<string>;
+  log: boolean;
 };
 
 const normalize_options = createSelector(
@@ -52,6 +53,7 @@ const normalize_options = createSelector(
     };
     const platform = opts.platform || 'desktop';
     const platform_extensions = platforms[platform];
+    const log = Boolean(opts.platform) || false;
 
     return {
       transform_functions,
@@ -59,6 +61,7 @@ const normalize_options = createSelector(
       platforms,
       platform,
       platform_extensions,
+      log,
     };
   }
 );

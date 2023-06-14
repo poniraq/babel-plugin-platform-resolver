@@ -1,10 +1,11 @@
 import path from 'path';
-import { strip_extension } from './utils';
+import { strip_extension, is_extensionless } from './utils';
 
 type TOptions = {
   basedir: string;
   platform_extensions: Array<string>;
   extensions: Array<string>;
+  log: boolean;
 };
 
 const is_module_import = (filepath: string, options: TOptions): boolean => {
@@ -21,42 +22,41 @@ const is_module_import = (filepath: string, options: TOptions): boolean => {
 
 const is_already_specific = (filepath: string, options: TOptions): boolean => {
   const { platform_extensions, extensions } = options;
+  const extensionless = is_extensionless(filepath, extensions);
   const parsed = path.parse(filepath);
 
-  let ends_with_extension = false;
-  for (const extension of extensions) {
-    if (filepath.endsWith(extension)) {
-      ends_with_extension = true;
-      break;
-    }
-  }
-
-  let filename = parsed.name;
-  let fileext = parsed.ext;
-  if (!ends_with_extension) {
+  let name = parsed.name;
+  let ext = parsed.ext;
+  if (extensionless) {
     /**
      * filepath = 'example_file.win' // e.g. "extensionless"
      * -> parsed.name = example_file
      * -> parsed.ext = win
      */
-    filename += `.${parsed.ext}`;
-    fileext = '';
+    if (parsed.ext !== '') {
+      name += `.${parsed.ext}`;
+    }
+    ext = '';
   }
 
   let ends_with_platform = false;
   for (const platform_extension of platform_extensions) {
-    if (parsed.name.endsWith(`.${platform_extension}`)) {
+    if (name.endsWith(`.${platform_extension}`)) {
       ends_with_platform = true;
       break;
     }
   }
 
-  return ends_with_platform && (fileext === '' || extensions.includes(fileext));
+  return ends_with_platform && (ext === '' || extensions.includes(ext));
 };
 
 const try_resolve = (filepath: string, options: TOptions): string | null => {
   const { platform_extensions, extensions, basedir } = options;
-  const filepath_stripped = strip_extension(filepath, platform_extensions);
+  const filepath_stripped = strip_extension(
+    filepath,
+    extensions,
+    platform_extensions
+  );
 
   for (const platform_extension of platform_extensions) {
     for (const extension of extensions) {

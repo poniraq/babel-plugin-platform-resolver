@@ -4,7 +4,6 @@ import * as BabelTypes from '@babel/types';
 import { ImportDeclaration, ExportDeclaration } from '@babel/types';
 
 import { NormalizedOptions } from '../options';
-import * as utils from '../utils';
 import * as resolver from '../resolver';
 
 const ImportExportVisitor = <
@@ -33,7 +32,9 @@ const ImportExportVisitor = <
   });
   if (!alternative_path) return;
 
-  console.log(`platform-resolver: ${import_path} -> ${alternative_path}`);
+  if (options.log) {
+    console.log(`platform-resolver: ${import_path} -> ${alternative_path}`);
+  }
 
   visited_nodes.add(node_path);
   source.replaceWith(types.stringLiteral(alternative_path));
