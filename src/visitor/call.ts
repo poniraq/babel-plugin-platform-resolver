@@ -30,13 +30,10 @@ const CallVisitor = (node_path: NodePath<CallExpression>, state: any) => {
 
     const import_path = arg0.node.value;
 
-    const alternative_path = resolver.resolve(
-      import_path,
-      {
-        ...options,
-        basedir
-      }
-    );
+    const alternative_path = resolver.resolve(import_path, {
+      ...options,
+      basedir,
+    });
     if (!alternative_path) return;
 
     visited_nodes.add(node_path);

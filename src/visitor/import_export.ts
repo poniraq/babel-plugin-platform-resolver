@@ -27,13 +27,10 @@ const ImportExportVisitor = <
   if (!types.isStringLiteral(source)) return;
 
   const import_path = source.value || (source.node as any).value;
-  const alternative_path = resolver.resolve(
-    import_path,
-    {
-      ...options,
-      basedir
-    }
-  );
+  const alternative_path = resolver.resolve(import_path, {
+    ...options,
+    basedir,
+  });
   if (!alternative_path) return;
 
   console.log(`platform-resolver: ${import_path} -> ${alternative_path}`);

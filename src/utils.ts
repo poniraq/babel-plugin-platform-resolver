@@ -36,7 +36,7 @@ const strip_extension = (
   platform_extensions: Array<string>
 ): string => {
   const parsed = path.parse(filepath);
-  
+
   let result = `${parsed.dir}${path.sep}${parsed.name}`;
   if (platform_extensions.includes(parsed.ext)) {
     result += `.${parsed.ext}`;
@@ -45,8 +45,4 @@ const strip_extension = (
   return result;
 };
 
-export {
-  is_normal_call,
-  is_import_call,
-  strip_extension
-};
+export { is_normal_call, is_import_call, strip_extension };
