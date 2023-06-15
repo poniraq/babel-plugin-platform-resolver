@@ -34,7 +34,7 @@ const is_already_specific = (filepath: string, options: TOptions): boolean => {
      * -> parsed.ext = win
      */
     if (parsed.ext !== '') {
-      name += `.${parsed.ext}`;
+      name += parsed.ext;
     }
     ext = '';
   }
@@ -47,7 +47,8 @@ const is_already_specific = (filepath: string, options: TOptions): boolean => {
     }
   }
 
-  return ends_with_platform && (ext === '' || extensions.includes(ext));
+  const ext_no_dot = ext.replace(/^\./g, '');
+  return ends_with_platform && (ext === '' || extensions.includes(ext_no_dot));
 };
 
 const try_resolve = (filepath: string, options: TOptions): string | null => {
@@ -81,6 +82,8 @@ const resolve = (filepath: string, options: TOptions): string | null => {
   if (is_already_specific(filepath, options)) {
     return filepath;
   }
+
+  return require.resolve(filepath);
 
   if (is_module_import(filepath, options)) {
     const resolved_path = require.resolve(filepath, {

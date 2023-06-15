@@ -42,7 +42,7 @@ const strip_extension = (
 
   const parsed = path.parse(filepath);
 
-  let result = `${parsed.dir}${path.sep}${parsed.name}`;
+  let result = `${parsed.dir}/${parsed.name}`;
   if (platform_extensions.includes(parsed.ext)) {
     result += `.${parsed.ext}`;
   }
